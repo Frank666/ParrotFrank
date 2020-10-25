@@ -9,7 +9,7 @@ using System;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using ParrotFrankAPI.parrot_frank;
+using ParrotFrankEntities.parrot_frank;
 
 namespace ParrotFrankAPI
 {
