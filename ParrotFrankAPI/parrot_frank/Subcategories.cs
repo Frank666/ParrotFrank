@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ParrotFrankAPI.Parrot_Frank
+namespace ParrotFrankAPI.parrot_frank
 {
     public partial class Subcategories
     {
@@ -10,5 +10,6 @@ namespace ParrotFrankAPI.Parrot_Frank
         public decimal? Price { get; set; }
         public int Status { get; set; }
         public string Name { get; set; }
+        public DateTime DateCreation { get; set; }
     }
 }

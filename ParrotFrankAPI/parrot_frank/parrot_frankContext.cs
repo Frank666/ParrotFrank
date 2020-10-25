@@ -2,10 +2,11 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace ParrotFrankAPI.Parrot_Frank
+namespace ParrotFrankAPI.parrot_frank
 {
     public partial class parrot_frankContext : DbContext
-    { 
+    {
+
         public parrot_frankContext(DbContextOptions<parrot_frankContext> options)
             : base(options)
         {
@@ -19,7 +20,6 @@ namespace ParrotFrankAPI.Parrot_Frank
         {
             if (!optionsBuilder.IsConfigured)
             {
-
             }
         }
 
@@ -34,7 +34,12 @@ namespace ParrotFrankAPI.Parrot_Frank
 
                 entity.Property(e => e.CategoryId).HasColumnName("CategoryID");
 
-                entity.Property(e => e.Name).HasMaxLength(100);
+                entity.Property(e => e.DateCreation).HasColumnType("datetime");
+
+                entity.Property(e => e.Name)
+                    .HasColumnType("varchar(100)")
+                    .HasCharSet("utf8mb4")
+                    .HasCollation("utf8mb4_0900_ai_ci");
             });
 
             modelBuilder.Entity<Subcategories>(entity =>
@@ -46,9 +51,17 @@ namespace ParrotFrankAPI.Parrot_Frank
 
                 entity.Property(e => e.SubCategoryId).HasColumnName("SubCategoryID");
 
-                entity.Property(e => e.ImageUrl).HasMaxLength(300);
+                entity.Property(e => e.DateCreation).HasColumnType("datetime");
 
-                entity.Property(e => e.Name).HasMaxLength(100);
+                entity.Property(e => e.ImageUrl)
+                    .HasColumnType("varchar(300)")
+                    .HasCharSet("utf8mb4")
+                    .HasCollation("utf8mb4_0900_ai_ci");
+
+                entity.Property(e => e.Name)
+                    .HasColumnType("varchar(100)")
+                    .HasCharSet("utf8mb4")
+                    .HasCollation("utf8mb4_0900_ai_ci");
 
                 entity.Property(e => e.Price).HasColumnType("decimal(10,0)");
             });
@@ -62,21 +75,45 @@ namespace ParrotFrankAPI.Parrot_Frank
 
                 entity.Property(e => e.UserId).HasColumnName("UserID");
 
+                entity.Property(e => e.DateCreation).HasColumnType("datetime");
+
+                entity.Property(e => e.LastAccess).HasColumnType("datetime");
+
                 entity.Property(e => e.LastName)
                     .IsRequired()
-                    .HasMaxLength(100);
+                    .HasColumnType("varchar(100)")
+                    .HasCharSet("utf8mb4")
+                    .HasCollation("utf8mb4_0900_ai_ci");
 
                 entity.Property(e => e.Name)
                     .IsRequired()
-                    .HasMaxLength(100);
+                    .HasColumnType("varchar(100)")
+                    .HasCharSet("utf8mb4")
+                    .HasCollation("utf8mb4_0900_ai_ci");
 
                 entity.Property(e => e.Nick)
                     .IsRequired()
-                    .HasMaxLength(100);
+                    .HasColumnType("varchar(100)")
+                    .HasCharSet("utf8mb4")
+                    .HasCollation("utf8mb4_0900_ai_ci");
+
+                entity.Property(e => e.RefreshTime).HasColumnType("datetime");
+
+                entity.Property(e => e.RefreshToken)
+                    .HasColumnType("varchar(300)")
+                    .HasCharSet("utf8mb4")
+                    .HasCollation("utf8mb4_0900_ai_ci");
 
                 entity.Property(e => e.Secret)
                     .IsRequired()
-                    .HasMaxLength(100);
+                    .HasColumnType("varchar(100)")
+                    .HasCharSet("utf8mb4")
+                    .HasCollation("utf8mb4_0900_ai_ci");
+
+                entity.Property(e => e.Token)
+                    .HasColumnType("varchar(4000)")
+                    .HasCharSet("utf8mb4")
+                    .HasCollation("utf8mb4_0900_ai_ci");
             });
 
             OnModelCreatingPartial(modelBuilder);

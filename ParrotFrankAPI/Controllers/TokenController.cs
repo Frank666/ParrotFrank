@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using ParrotFrankAPI.Parrot_Frank;
+using ParrotFrankAPI.parrot_frank;
 
 namespace ParrotFrankAPI.Controllers
 {
@@ -27,7 +27,8 @@ namespace ParrotFrankAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(Users requestUser)
+        [Route("login")]
+        public async Task<IActionResult> Login(Users requestUser)
         {
             if (requestUser != null && requestUser.Nick != null && requestUser.Secret != null)
             {
@@ -44,14 +45,22 @@ namespace ParrotFrankAPI.Controllers
                     new Claim("LastName", user.LastName),
                     new Claim("Nick", user.Nick),
                    };
+;
+                    var tokenHelper = new Helpers.TokenService();
+                    var accessToken = tokenHelper.GenerateAccessToken(claims);
+                    var refreshToken = tokenHelper.GenerateRefreshToken();
 
-                    var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
+                    user.Token = accessToken;
+                    user.RefreshToken = refreshToken;
+                    user.RefreshTime = DateTime.Now.AddMinutes(25);
+                    _context.SaveChanges();
 
-                    var signIn = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-
-                    var token = new JwtSecurityToken(_configuration["Jwt:Issuer"], _configuration["Jwt:Audience"], claims, expires: DateTime.UtcNow.AddDays(1), signingCredentials: signIn);
-
-                    return Ok(new JwtSecurityTokenHandler().WriteToken(token));
+                    return Ok(new
+                    {
+                        Token = accessToken,
+                        RefreshToken =  refreshToken
+                    }
+                    );
                 }
                 else
                 {
@@ -62,6 +71,36 @@ namespace ParrotFrankAPI.Controllers
             {
                 return BadRequest();
             }
+        }
+
+        [HttpPost]
+        [Route("refresh")]
+        public async Task<IActionResult> Refresh(Users requestUser)
+        {
+            var helper = new Helpers.TokenService();
+            if (requestUser is null)
+            {
+                return BadRequest("Invalid client request");
+            }
+            string accessToken = requestUser.Token;
+            string refreshToken = requestUser.RefreshToken;
+            var principal = helper.GetPrincipalFromExpiredToken(accessToken);
+
+            var user = await _context.Users.SingleOrDefaultAsync(u => u.Nick == requestUser.Nick);
+            if (user == null || user.RefreshToken != refreshToken || user.RefreshTime <= DateTime.Now)
+            {
+                return BadRequest("Invalid client request");
+            }
+
+            var newAccessToken = helper.GenerateAccessToken(principal.Claims);
+            var newRefreshToken = helper.GenerateRefreshToken();
+            user.RefreshToken = newRefreshToken;
+            _context.SaveChanges();
+            return new ObjectResult(new
+            {
+                accessToken = newAccessToken,
+                refreshToken = newRefreshToken
+            });
         }
 
         private async Task<Users> GetUser(string nick, string secret)
