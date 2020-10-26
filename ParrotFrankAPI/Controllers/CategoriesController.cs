@@ -1,22 +1,22 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using ParrotFrankData;
+using ParrotFrankData.Products;
 using ParrotFrankEntities.parrot_frank;
+using ParrotFrankInterfaces;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace ParrotFrankAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CategoriesController : ControllerBase
+    public class CategoriesController : MainController<Categories, ProductsRepository>
     {
-        private readonly parrot_frankContext _context;
-        public CategoriesController(parrot_frankContext context)
+        public CategoriesController(ProductsRepository repository) : base(repository)
         {
-            _context = context;
-        }
 
-        //[HttpPost]
-        //public Task<IActionResult> Create(Categories model)
-        //{
-        //    return Ok();
-        //}
+        }
     }
 }

@@ -25,6 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ParrotFrankData\ParrotFrankData.csproj" />
     <ProjectReference Include="..\ParrotFrankEntities\ParrotFrankEntities.csproj" />
   </ItemGroup>
 

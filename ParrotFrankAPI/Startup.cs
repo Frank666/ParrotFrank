@@ -10,6 +10,10 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using ParrotFrankEntities.parrot_frank;
+using ParrotFrankData;
+using ParrotFrankData.Products;
+using ParrotFrankData.Tokens;
+using ParrotFrankData.SubProducts;
 
 namespace ParrotFrankAPI
 {
@@ -27,7 +31,7 @@ namespace ParrotFrankAPI
                 .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
                 .AddJsonFile("appsettings.json")
                 .Build();
-            services.AddDbContextPool<parrot_frankContext>(
+            services.AddDbContextPool<MySQLContext>(
                 options => options.UseMySql(configuration.GetConnectionString("Parrot_Frank")
             ));
 
@@ -45,6 +49,10 @@ namespace ParrotFrankAPI
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"]))
                 };
             });
+
+            services.AddScoped<ProductsRepository>();
+            services.AddScoped<SubProductsRepository>();
+            services.AddScoped<UsersRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

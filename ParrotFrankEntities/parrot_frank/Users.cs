@@ -1,11 +1,12 @@
-﻿using System;
+﻿using ParrotFrankInterfaces;
+using System;
 using System.Collections.Generic;
 
 namespace ParrotFrankEntities.parrot_frank
 {
-    public partial class Users
+    public partial class Users: IEntity
     {
-        public int UserId { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
         public string LastName { get; set; }
         public string Nick { get; set; }

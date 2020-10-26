@@ -5,22 +5,23 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using ParrotFrankData.Products;
+using ParrotFrankData.Tokens;
 using ParrotFrankEntities.parrot_frank;
 
 namespace ParrotFrankAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class TokenController : ControllerBase
+    public class TokenController : MainController<Users, UsersRepository>
     {
-        public IConfiguration _configuration;
-        private readonly parrot_frankContext _context;
-        public TokenController(IConfiguration config, parrot_frankContext context)
+        private readonly UsersRepository _repository;
+        private readonly IConfiguration _configuration;
+        public TokenController(IConfiguration config, UsersRepository repository) : base(repository)
         {
+            _repository = repository;
             _configuration = config;
-            _context = context;
         }
-
         [HttpPost]
         [Route("login")]
         public async Task<IActionResult> Login(Users requestUser)
@@ -35,12 +36,12 @@ namespace ParrotFrankAPI.Controllers
                     new Claim(JwtRegisteredClaimNames.Sub, _configuration["Jwt:Subject"]),
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                     new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString()),
-                    new Claim("Id", user.UserId.ToString()),
+                    new Claim("Id", user.Id.ToString()),
                     new Claim("FirstName", user.Name),
                     new Claim("LastName", user.LastName),
                     new Claim("Nick", user.Nick),
                    };
-;
+                    ;
                     var tokenHelper = new Helpers.TokenService();
                     var accessToken = tokenHelper.GenerateAccessToken(claims);
                     var refreshToken = tokenHelper.GenerateRefreshToken();
@@ -48,12 +49,12 @@ namespace ParrotFrankAPI.Controllers
                     user.Token = accessToken;
                     user.RefreshToken = refreshToken;
                     user.RefreshTime = DateTime.Now.AddMinutes(25);
-                    _context.SaveChanges();
+                    await _repository.Update(user);
 
                     return Ok(new
                     {
                         Token = accessToken,
-                        RefreshToken =  refreshToken
+                        RefreshToken = refreshToken
                     }
                     );
                 }
@@ -81,7 +82,7 @@ namespace ParrotFrankAPI.Controllers
             string refreshToken = requestUser.RefreshToken;
             var principal = helper.GetPrincipalFromExpiredToken(accessToken);
 
-            var user = await _context.Users.SingleOrDefaultAsync(u => u.Nick == requestUser.Nick);
+            var user = await _repository.GetByNick(requestUser.Nick);
             if (user == null || user.RefreshToken != refreshToken || user.RefreshTime <= DateTime.Now)
             {
                 return BadRequest("Invalid client request");
@@ -90,7 +91,7 @@ namespace ParrotFrankAPI.Controllers
             var newAccessToken = helper.GenerateAccessToken(principal.Claims);
             var newRefreshToken = helper.GenerateRefreshToken();
             user.RefreshToken = newRefreshToken;
-            _context.SaveChanges();
+            await _repository.Update(user);
             return new ObjectResult(new
             {
                 accessToken = newAccessToken,
@@ -99,8 +100,8 @@ namespace ParrotFrankAPI.Controllers
         }
 
         private async Task<Users> GetUser(string nick, string secret)
-        {
-            return await _context.Users.FirstOrDefaultAsync(u => u.Nick == nick && u.Secret == secret);
+        {            
+            return await _repository.GetUser(nick, secret);
         }
     }
 }

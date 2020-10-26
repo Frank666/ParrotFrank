@@ -17,12 +17,6 @@ namespace ParrotFrankEntities.parrot_frank
         public virtual DbSet<Subcategories> Subcategories { get; set; }
         public virtual DbSet<Users> Users { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
-            }
-        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
