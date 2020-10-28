@@ -11,19 +11,19 @@ using Newtonsoft.Json;
 using System.Text;
 using Nancy.Json;
 using System.Threading.Tasks;
+using ParrotFrankEntities.parrot_frank;
+using System.Threading;
 
 namespace AppParrotFrank
 {
     public partial class Init : Form
     {
-        BackgroundWorker bgWorker = new BackgroundWorker();
+        private HttpResponseMessage responseResult;
 
 
         public Init()
         {
             InitializeComponent();
-            bgWorker.DoWork += bgWorker_DoWork;
-            bgWorker.RunWorkerCompleted += bgWorker_WorkComplete;
             txtNick.Focus();
         }
 
@@ -42,81 +42,48 @@ namespace AppParrotFrank
 
         private async void Login()
         {
-            var url = ConfigurationManager.AppSettings.Get("apiServer").ToString() + $"api/token/login/";            
+            btnLogin.Enabled = false;
+            picLoading.Show();
+            await Task.Run(() => {
+                return CheckUser();
+            }).ContinueWith(x => {
+                responseResult = x.Result;
+            });
+            btnLogin.Enabled = true;
+            if (responseResult != null)
+            {
+                picLoading.Hide();
+                if (Convert.ToInt32(this.responseResult.StatusCode) == 200)
+                {
+                    this.Hide();
+                    new Main(this.txtNick.Text).Show();
+                }
+                else
+                {
+                    MessageBox.Show(responseResult.StatusCode.ToString());
+                }
+            }
+        }        
+         
+
+        private async Task<HttpResponseMessage> CheckUser()
+        {
+            var url = ConfigurationManager.AppSettings.Get("apiServer").ToString() + "api/token/login/";
             try
             {
-                using (var client = new HttpClient { Timeout = TimeSpan.FromSeconds(30) })
+                var postObject = new
                 {
-                    var postObject = new 
-                    {
-                        Nick = this.txtNick.Text,
-                        Secret = this.txtPass.Text
-                    };
-
-                    var myContent = JsonConvert.SerializeObject(postObject);                    
-                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-                    var builder = new UriBuilder(new Uri(url));;
-
-                    HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, builder.Uri);
-                    request.Content = new StringContent(myContent, Encoding.UTF8, "application/json");//CONTENT-TYPE header
-
-                    HttpResponseMessage response = await client.SendAsync(request);
-
-                    if(Convert.ToInt32(response.StatusCode) == 200)
-                    {
-                        this.Hide();
-                        var next = new Main();
-                        next.Show();
-                    }
-                    else
-                    {
-                        MessageBox.Show(response.Content.ToString(), "UPS!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
+                    Nick = this.txtNick.Text,
+                    Secret = this.txtPass.Text
                 };
-
+                return await new ParrotFrankHelpers.APIConsume().APICall(HttpMethod.Post, url, postObject);
             }
             catch (WebException ex)
             {
                 // Handle error
             }
-
-            //btnLogin.Enabled = false;
-            //if (!bgWorker.IsBusy)
-            //    bgWorker.RunWorkerAsync();
-        }
-
-        
-              
-        private void bgWorker_DoWork(object sender, DoWorkEventArgs e)
-        {
-            int x = 0;
-
-            int maxProgress = 100;
-            prgProgressBar.Maximum = maxProgress;
-
-
-            while (x < maxProgress)
-            {
-                System.Threading.Thread.Sleep(50);
-                Invoke(new Action(() => { prgProgressBar.PerformStep(); }));
-                x += 1;
-            }
-        }
-
-        private void bgWorker_WorkComplete(object sender, RunWorkerCompletedEventArgs e)
-        {
-            //e.Error will contain any exceptions caught by the backgroundWorker
-            if (e.Error != null)
-            {
-                MessageBox.Show(e.Error.Message);
-            }
-            else
-            {
-                btnLogin.Enabled = true;
-                MessageBox.Show("Task Complete!");
-            }
-        }
+            return null;
+        } 
 
         private bool ValidateInputs()
         {

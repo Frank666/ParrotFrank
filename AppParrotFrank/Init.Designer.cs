@@ -28,12 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Init));
             this.lblNick = new System.Windows.Forms.Label();
             this.lblPass = new System.Windows.Forms.Label();
             this.btnLogin = new System.Windows.Forms.Button();
             this.txtPass = new System.Windows.Forms.TextBox();
             this.txtNick = new System.Windows.Forms.TextBox();
-            this.prgProgressBar = new System.Windows.Forms.ProgressBar();
+            this.picLoading = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.picLoading)).BeginInit();
             this.SuspendLayout();
             // 
             // lblNick
@@ -79,19 +81,23 @@
             this.txtNick.Size = new System.Drawing.Size(183, 23);
             this.txtNick.TabIndex = 1;
             // 
-            // prgProgressBar
+            // picLoading
             // 
-            this.prgProgressBar.Location = new System.Drawing.Point(12, 161);
-            this.prgProgressBar.Name = "prgProgressBar";
-            this.prgProgressBar.Size = new System.Drawing.Size(252, 23);
-            this.prgProgressBar.TabIndex = 5;
+            this.picLoading.Image = ((System.Drawing.Image)(resources.GetObject("picLoading.Image")));
+            this.picLoading.Location = new System.Drawing.Point(66, 12);
+            this.picLoading.Name = "picLoading";
+            this.picLoading.Size = new System.Drawing.Size(131, 129);
+            this.picLoading.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picLoading.TabIndex = 6;
+            this.picLoading.TabStop = false;
+            this.picLoading.Visible = false;
             // 
             // Init
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(285, 196);
-            this.Controls.Add(this.prgProgressBar);
+            this.ClientSize = new System.Drawing.Size(275, 153);
+            this.Controls.Add(this.picLoading);
             this.Controls.Add(this.txtNick);
             this.Controls.Add(this.txtPass);
             this.Controls.Add(this.btnLogin);
@@ -102,6 +108,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Parrot Frank";
             this.Load += new System.EventHandler(this.Form1_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.picLoading)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -114,7 +121,7 @@
         private System.Windows.Forms.Button btnLogin;
         private System.Windows.Forms.TextBox txtPass;
         private System.Windows.Forms.TextBox txtNick;
-        private System.Windows.Forms.ProgressBar prgProgressBar;
+        private System.Windows.Forms.PictureBox picLoading;
     }
 }
 

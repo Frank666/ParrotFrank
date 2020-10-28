@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ParrotFrankEntities\ParrotFrankEntities.csproj" />
+    <ProjectReference Include="..\ParrotFrankHelpers\ParrotFrankHelpers.csproj" />
   </ItemGroup>
 
   <ItemGroup>
