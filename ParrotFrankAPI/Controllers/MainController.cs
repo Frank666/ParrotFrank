@@ -28,29 +28,29 @@ namespace ParrotFrankAPI.Controllers
             return await repository.GetAll();
         }
 
-        // GET: api/[controller]/5
-        //[HttpGet("{id}")]
-        //public async Task<ActionResult<TEntity>> Get(int id)
-        //{
-        //    var movie = await repository.Get(id);
-        //    if (movie == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    return movie;
-        //}
+        //GET: api/[controller]/5
+        [HttpGet("{id}")]
+        public async Task<ActionResult<TEntity>> Get(int id)
+        {
+            var result = await repository.Get(id);
+            if (result == null)
+            {
+                return NotFound();
+            }
+            return result;
+        }
 
         // PUT: api/[controller]/5
-        //[HttpPut("{id}")]
-        //public async Task<IActionResult> Put(int id, TEntity movie)
-        //{
-        //    if (id != movie.Id)
-        //    {
-        //        return BadRequest();
-        //    }
-        //    await repository.Update(movie);
-        //    return NoContent();
-        //}
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Put(int id, TEntity entity)
+        {
+            if (id != entity.Id)
+            {
+                return BadRequest();
+            }
+            await repository.Update(entity);
+            return NoContent();
+        }
 
 
     }
