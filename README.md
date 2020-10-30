@@ -11,7 +11,7 @@ MSI Installer
 1) Clone the repo and open the solution file on Visual Studio 
 2) Run the schema.sql script to create the DB with some example data
 3) Build the solution in order to install the dependencies 
-4) By Default the solution will starts a Windows Forms project and also a Web API project
+4) By Default the solution will launch a Windows Forms project and also a Web API project
 5) In the schema.sql file you can find an example of users to login 
 ```
 
