@@ -20,15 +20,6 @@
     <Reference Include="PresentationCore">
       <HintPath>..\..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\PresentationCore.dll</HintPath>
     </Reference>
-    <Reference Include="Telerik.WinControls">
-      <HintPath>..\lib\RCWF\2020.3.1020.20.Trial\Telerik.WinControls.dll</HintPath>
-    </Reference>
-    <Reference Include="Telerik.WinControls.UI">
-      <HintPath>..\lib\RCWF\2020.3.1020.20.Trial\Telerik.WinControls.UI.dll</HintPath>
-    </Reference>
-    <Reference Include="TelerikCommon">
-      <HintPath>..\lib\RCWF\2020.3.1020.20.Trial\TelerikCommon.dll</HintPath>
-    </Reference>
   </ItemGroup>
 
   <ItemGroup>

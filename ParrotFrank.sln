@@ -13,7 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ParrotFrankData", "ParrotFr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ParrotFrankInterfaces", "ParrotFrankInterfaces\ParrotFrankInterfaces.csproj", "{89566C60-841A-4BF9-91CB-A30A1A3A05FB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParrotFrankHelpers", "ParrotFrankHelpers\ParrotFrankHelpers.csproj", "{BC0C064A-E421-470D-ACF0-5CA1C33D49A0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ParrotFrankHelpers", "ParrotFrankHelpers\ParrotFrankHelpers.csproj", "{BC0C064A-E421-470D-ACF0-5CA1C33D49A0}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "ParrotFrankInstaller", "ParrotFrankInstaller\ParrotFrankInstaller.vdproj", "{CD9D59D5-46BA-4066-A7A8-050131703BE7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,8 @@ Global
 		{BC0C064A-E421-470D-ACF0-5CA1C33D49A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BC0C064A-E421-470D-ACF0-5CA1C33D49A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BC0C064A-E421-470D-ACF0-5CA1C33D49A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD9D59D5-46BA-4066-A7A8-050131703BE7}.Debug|Any CPU.ActiveCfg = Debug
+		{CD9D59D5-46BA-4066-A7A8-050131703BE7}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -28,20 +28,7 @@ namespace AppParrotFrank
             MyTimer.Interval = (25 * 60 * 1000); // 20 mins
             MyTimer.Tick += new EventHandler(MyTimer_Tick);
             MyTimer.Start();
-        }
-
-        private void MyTimer_Tick(object sender, EventArgs e)
-        {
-            DialogResult dialogResult = MessageBox.Show("Do you want to extend the session?", "Session Expired", MessageBoxButtons.YesNo);
-            if (dialogResult == DialogResult.Yes)
-            {
-                GetNewToken();
-            }
-            else if (dialogResult == DialogResult.No)
-            {
-                this.Close();
-            }
-        }
+        }        
 
         #region "Events"
         private void label3_Click(object sender, EventArgs e)
@@ -57,6 +44,18 @@ namespace AppParrotFrank
         private void label2_Click(object sender, EventArgs e)
         {
 
+        }
+        private void MyTimer_Tick(object sender, EventArgs e)
+        {
+            DialogResult dialogResult = MessageBox.Show("Do you want to extend the session?", "Session Expired", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                GetNewToken();
+            }
+            else if (dialogResult == DialogResult.No)
+            {
+                this.Close();
+            }
         }
         #endregion
 
