@@ -12,5 +12,6 @@ namespace ParrotFrankEntities.parrot_frank
         public string Name { get; set; }
         public DateTime DateCreation { get; set; }
         public int Id { get; set; }
+        public int CategoryId { get; set; }
     }
 }

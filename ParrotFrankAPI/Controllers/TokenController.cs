@@ -36,6 +36,8 @@ namespace ParrotFrankAPI.Controllers
                     new Claim(JwtRegisteredClaimNames.Sub, _configuration["Jwt:Subject"]),
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                     new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString()),
+                    new Claim("issuer", _configuration["Jwt:Subject"]),
+                    new Claim("audience", _configuration["Jwt:Subject"]),
                     new Claim("Id", user.Id.ToString()),
                     new Claim("FirstName", user.Name),
                     new Claim("LastName", user.LastName),
@@ -43,6 +45,7 @@ namespace ParrotFrankAPI.Controllers
                    };
                     ;
                     var tokenHelper = new Helpers.TokenService();
+                    tokenHelper.Key = _configuration["Jwt:Key"].ToString();
                     var accessToken = tokenHelper.GenerateAccessToken(claims);
                     var refreshToken = tokenHelper.GenerateRefreshToken();
 
@@ -54,7 +57,8 @@ namespace ParrotFrankAPI.Controllers
                     return Ok(new
                     {
                         Token = accessToken,
-                        RefreshToken = refreshToken
+                        RefreshToken = refreshToken,
+                        RefreshTime = user.RefreshTime
                     }
                     );
                 }

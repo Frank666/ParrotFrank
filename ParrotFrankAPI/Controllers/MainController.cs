@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using ParrotFrankInterfaces;
 using System;
 using System.Collections.Generic;
@@ -6,7 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace ParrotFrankAPI.Controllers
-{
+{    
     [Route("api/[controller]")]
     [ApiController]
     public abstract class MainController<TEntity, TRepository> : ControllerBase
@@ -44,10 +45,10 @@ namespace ParrotFrankAPI.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> Put(int id, TEntity entity)
         {
-            if (id != entity.Id)
-            {
-                return BadRequest();
-            }
+            //if (id != entity.Id)
+            //{
+            //    return BadRequest();
+            //}
             await repository.Update(entity);
             return NoContent();
         }

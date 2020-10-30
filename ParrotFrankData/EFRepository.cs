@@ -47,6 +47,8 @@ namespace ParrotFrankData
 
         public async Task<TEntity> Update(TEntity entity)
         {
+            //DbEntityEntry dbEntityEntry = DbContext.Entry(entity);
+            context.Attach(entity);
             context.Entry(entity).State = EntityState.Modified;
             await context.SaveChangesAsync();
             return entity;

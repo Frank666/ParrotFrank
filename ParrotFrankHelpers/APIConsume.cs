@@ -12,7 +12,8 @@ namespace ParrotFrankHelpers
 {
     public class APIConsume
     {        
-        public async Task<HttpResponseMessage> APICall(HttpMethod method, string url, object parameters, int timeOut = 30, string contentTypeHeader = "application/json")
+        public async Task<HttpResponseMessage> APICall(HttpMethod method, string url, object parameters, string token = null,
+                    int timeOut = 30, string contentTypeHeader = "application/json")
         {
             try
             {
@@ -20,9 +21,14 @@ namespace ParrotFrankHelpers
                 {
                     var myContent = JsonConvert.SerializeObject(parameters);
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(contentTypeHeader));
+                    if(token != null)
+                    {
+                        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+                    }
                     var builder = new UriBuilder(new Uri(url));
                     HttpRequestMessage request = new HttpRequestMessage(method, builder.Uri);
                     request.Content = new StringContent(myContent, Encoding.UTF8, "application/json");
+                    
                     return await client.SendAsync(request);
                 };
             }     

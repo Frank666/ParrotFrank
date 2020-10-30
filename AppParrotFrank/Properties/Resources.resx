@@ -118,10 +118,19 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="1920x1080-px-Link-Master-Sword-The-Legend-of-Zelda-video-games-1298349" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\1920x1080-px-Link-Master-Sword-The-Legend-of-Zelda-video-games-12983491.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="expander_up" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\expander_up.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="loading" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\loading.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="expander_down" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\expander_down1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="beer_mug_21_609139" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\beer-mug-21-609139.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="dessert_1466876_1240028" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\dessert-1466876-1240028.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="food_823_756232" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\food-823-756232.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

@@ -13,13 +13,13 @@ using Nancy.Json;
 using System.Threading.Tasks;
 using ParrotFrankEntities.parrot_frank;
 using System.Threading;
+using ParrotFrankEntities;
 
 namespace AppParrotFrank
 {
     public partial class Init : Form
     {
         private HttpResponseMessage responseResult;
-
 
         public Init()
         {
@@ -29,7 +29,8 @@ namespace AppParrotFrank
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            
+            this.txtNick.Text = "Fideo";
+            this.txtPass.Text = "Fideo123";
         }
 
         private void btnLogin_Click(object sender, EventArgs e)
@@ -55,8 +56,10 @@ namespace AppParrotFrank
                 picLoading.Hide();
                 if (Convert.ToInt32(this.responseResult.StatusCode) == 200)
                 {
+                    GlobalUser.CurrentUser = JsonConvert.DeserializeObject<Users>(responseResult.Content.ReadAsStringAsync().Result);
+                    GlobalUser.CurrentUser.Nick = this.txtNick.Text;
                     this.Hide();
-                    new Main(this.txtNick.Text).Show();
+                    new Main().Show();
                 }
                 else
                 {

@@ -14,6 +14,9 @@ using ParrotFrankData;
 using ParrotFrankData.Products;
 using ParrotFrankData.Tokens;
 using ParrotFrankData.SubProducts;
+using System.Linq;
+using NSwag;
+using NSwag.Generation.Processors.Security;
 
 namespace ParrotFrankAPI
 {
@@ -38,16 +41,38 @@ namespace ParrotFrankAPI
             //Security Middleware
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(o =>
             {
-            o.RequireHttpsMetadata = true;
+                o.RequireHttpsMetadata = true;
             o.SaveToken = true;
                 o.TokenValidationParameters = new TokenValidationParameters()
                 {
-                    ValidateIssuer = true,
-                    ValidateAudience = true,
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
                     ValidAudience = configuration["Jwt:Audience"],
                     ValidIssuer = configuration["Jwt:Issuer"],
+                    ValidateIssuerSigningKey = true,
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"]))
                 };
+            });
+
+            services.AddOpenApiDocument(document =>
+            {
+                document.Title = "Parrot Frank Web API";
+                document.Description = "Web API para proyecto de Parrot";
+
+                // CONFIGURAMOS LA SEGURIDAD JWT PARA SWAGGER,
+                // PERMITE AÑADIR EL TOKEN JWT A LA CABECERA.
+                document.AddSecurity("JWT", Enumerable.Empty<string>(),
+                    new OpenApiSecurityScheme
+                    {
+                        Type = OpenApiSecuritySchemeType.ApiKey,
+                        Name = "Authorization",
+                        In = OpenApiSecurityApiKeyLocation.Header,
+                        Description = "Copia y pega el Token en el campo 'Value:' así: Bearer {Token JWT}."
+                    }
+                );
+
+                document.OperationProcessors.Add(
+                    new AspNetCoreOperationSecurityScopeProcessor("JWT"));
             });
 
             services.AddScoped<ProductsRepository>();
@@ -79,6 +104,9 @@ namespace ParrotFrankAPI
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.UseOpenApi();
+            app.UseSwaggerUi3();
 
             app.UseEndpoints(endpoints =>
             {

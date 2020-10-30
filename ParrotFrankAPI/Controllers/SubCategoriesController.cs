@@ -15,9 +15,19 @@ namespace ParrotFrankAPI.Controllers
     [ApiController]
     public class SubCategoriesController : MainController<Subcategories, SubProductsRepository>
     {
+        private readonly SubProductsRepository _repository;
         public SubCategoriesController(SubProductsRepository repository) : base(repository)
         {
-
+            _repository = repository;
         }
+        [Route("GetByCategory/{productId}")]
+        [HttpGet]
+        
+        public async Task<ActionResult<List<Subcategories>>> GetByCategoryId(int productId)
+        {
+            return await _repository.GetByCategoryId(productId);
+        }
+
+
     }
 }

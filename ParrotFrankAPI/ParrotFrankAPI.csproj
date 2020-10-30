@@ -20,6 +20,7 @@
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
     <PackageReference Include="MySql.Data.EntityFrameworkCore" Version="8.0.22" />
+    <PackageReference Include="NSwag.AspNetCore" Version="13.8.2" />
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="3.2.3" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.8.0" />
   </ItemGroup>
@@ -27,6 +28,7 @@
   <ItemGroup>
     <ProjectReference Include="..\ParrotFrankData\ParrotFrankData.csproj" />
     <ProjectReference Include="..\ParrotFrankEntities\ParrotFrankEntities.csproj" />
+    <ProjectReference Include="..\ParrotFrankHelpers\ParrotFrankHelpers.csproj" />
   </ItemGroup>
 
 </Project>

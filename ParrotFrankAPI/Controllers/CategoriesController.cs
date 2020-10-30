@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ParrotFrankData;
 using ParrotFrankData.Products;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace ParrotFrankAPI.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class CategoriesController : MainController<Categories, ProductsRepository>
