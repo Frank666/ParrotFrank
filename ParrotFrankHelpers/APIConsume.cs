@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace ParrotFrankHelpers
 {
     public class APIConsume
-    {        
+    {
         public async Task<HttpResponseMessage> APICall(HttpMethod method, string url, object parameters, string token = null,
                     int timeOut = 30, string contentTypeHeader = "application/json")
         {

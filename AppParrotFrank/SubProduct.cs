@@ -20,34 +20,13 @@ namespace AppParrotFrank
         {
             InitializeComponent();
         }
-        public SubProduct(Subcategories subcategories, string productId)
-        {
-            InitializeComponent();            
-            this.lblCost.Text = subcategories.Price.ToString();
-            this.lblName.Text = subcategories.Name;
-            this.lblName.Name = productId;                       
-            this.chkAction.Name = subcategories.Id.ToString();
-            if (subcategories.Status == 1)
-                chkAction.Checked = true;
-            switch (subcategories.CategoryId)
-            {
-                case 1:
-                    this.picImage.Image = Properties.Resources.beer_mug_21_609139;
-                break;
-                case 2:
-                    this.picImage.Image = Properties.Resources.food_823_756232;
-                    break;
-                case 3:
-                    this.picImage.Image = Properties.Resources.dessert_1466876_1240028;
-                    break;
-            }
-        }
 
+        #region "Events"
         private void chkAvailable_CheckedChanged(object sender, EventArgs e)
         {
             if (!chkAction.Focused)
                 return;
-            var chk = (CheckBox)sender;            
+            var chk = (CheckBox)sender;
             var update = new Subcategories()
             {
                 Id = Convert.ToInt32(this.chkAction.Name),
@@ -59,7 +38,31 @@ namespace AppParrotFrank
             };
             setProduct(update);
         }
+        #endregion
 
+        #region "Methods"
+        public SubProduct(Subcategories subcategories, string productId)
+        {
+            InitializeComponent();
+            this.lblCost.Text = subcategories.Price.ToString();
+            this.lblName.Text = subcategories.Name;
+            this.lblName.Name = productId;
+            this.chkAction.Name = subcategories.Id.ToString();
+            if (subcategories.Status == 1)
+                chkAction.Checked = true;
+            switch (subcategories.CategoryId)
+            {
+                case 1:
+                    this.picImage.Image = Properties.Resources.beer_mug_21_609139;
+                    break;
+                case 2:
+                    this.picImage.Image = Properties.Resources.food_823_756232;
+                    break;
+                case 3:
+                    this.picImage.Image = Properties.Resources.dessert_1466876_1240028;
+                    break;
+            }
+        }
         private async void setProduct(Subcategories subProduct)
         {
             await Task.Run(() =>
@@ -67,7 +70,7 @@ namespace AppParrotFrank
                 return PutProduct(subProduct);
             }).ContinueWith(x =>
             {
-                if(Convert.ToInt32(x.Result.StatusCode) == 204)
+                if (Convert.ToInt32(x.Result.StatusCode) == 204)
                 {
                     MessageBox.Show("Status was updated", "Success", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
@@ -77,7 +80,6 @@ namespace AppParrotFrank
                 }
             });
         }
-
         private async Task<HttpResponseMessage> PutProduct(Subcategories subProduct)
         {
             var url = ConfigurationManager.AppSettings.Get("apiServer").ToString() + "api/SubCategories/" + subProduct.Id;
@@ -100,6 +102,6 @@ namespace AppParrotFrank
             }
             return null;
         }
-         
+        #endregion
     }
 }

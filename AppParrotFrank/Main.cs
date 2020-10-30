@@ -23,16 +23,10 @@ namespace AppParrotFrank
             InitializeComponent();
             this.lblUser.Text = lblUser.Text.Replace("@User", GlobalUser.CurrentUser.Nick);
             this.lblTitle.Text = $"{GlobalUser.CurrentUser.Nick} Store";
-            this.lblToken.Text = lblToken.Text.Replace("@Time", SessionTime(DateTime.Now, (DateTime)GlobalUser.CurrentUser.RefreshTime).ToString());
-
+            this.lblToken.Text = lblToken.Text.Replace("@Time", SessionTime(DateTime.Now, (DateTime)GlobalUser.CurrentUser.RefreshTime).ToString());            
         }
 
-        public double SessionTime(DateTime init, DateTime end)
-        {
-            TimeSpan ts = end - init;
-            return Math.Round(ts.TotalMinutes);
-        }
-
+        #region "Events"
         private void label3_Click(object sender, EventArgs e)
         {
 
@@ -40,13 +34,23 @@ namespace AppParrotFrank
 
         private void Main_Load(object sender, EventArgs e)
         {
-            LoadProducts();            
+            LoadProducts();
         }
 
         private void label2_Click(object sender, EventArgs e)
         {
 
         }
+        #endregion
+
+        #region "Methods"
+        public double SessionTime(DateTime init, DateTime end)
+        {
+            TimeSpan ts = end - init;
+            return Math.Round(ts.TotalMinutes);
+        }
+
+
 
         private async void LoadProducts()
         {
@@ -58,23 +62,19 @@ namespace AppParrotFrank
             if (responseResult != null)
             {
                 var result = JsonConvert.DeserializeObject<List<Categories>>(responseResult.Content.ReadAsStringAsync().Result);
-                if(result != null)
+                if (result != null)
                 {
                     foreach (var product in result)
                     {
-                        tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.AutoSize, 250F));
-                        tableLayoutPanel2.RowCount = tableLayoutPanel2.RowCount + 1;
-                        tableLayoutPanel2.Controls.Add(new Collapse(product), 1, tableLayoutPanel2.RowCount);
+                        accordion1.Add(new Collapse(product), product.Name + $"({result.Count})");
                     }
-                    tableLayoutPanel2.MaximumSize = new Size(tableLayoutPanel2.Width, tableLayoutPanel2.Height);
-                    panel1.VerticalScroll.Visible = true;
-                }                
+                }
             }
         }
 
         private async Task<HttpResponseMessage> GetProducts()
         {
-            var url = ConfigurationManager.AppSettings.Get("apiServer").ToString() + "api/Categories";
+            var url = ConfigurationManager.AppSettings.Get("apiServer").ToString() + ConfigurationManager.AppSettings.Get("productEndpoint").ToString();
             try
             {
                 return await new ParrotFrankHelpers.APIConsume().APICall(HttpMethod.Get, url, null, GlobalUser.CurrentUser.Token);
@@ -85,5 +85,6 @@ namespace AppParrotFrank
             }
             return null;
         }
+        #endregion
     }
 }

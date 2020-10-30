@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace ParrotFrankHelpers
 {
     public class Utilities
     {
+        private static int totalProducts = 0;
         public double SessionTime(DateTime init, DateTime end)
         {
             TimeSpan ts = end - init;

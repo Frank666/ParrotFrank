@@ -27,6 +27,8 @@ namespace AppParrotFrank
             txtNick.Focus();
         }
 
+
+        #region "Events"
         private void Form1_Load(object sender, EventArgs e)
         {
             this.txtNick.Text = "Fideo";
@@ -40,7 +42,9 @@ namespace AppParrotFrank
                 Login();
             }
         }
+        #endregion
 
+        #region "Methods"
         private async void Login()
         {
             btnLogin.Enabled = false;
@@ -66,12 +70,12 @@ namespace AppParrotFrank
                     MessageBox.Show(responseResult.StatusCode.ToString());
                 }
             }
-        }        
-         
+        }
+
 
         private async Task<HttpResponseMessage> CheckUser()
         {
-            var url = ConfigurationManager.AppSettings.Get("apiServer").ToString() + "api/token/login/";
+            var url = ConfigurationManager.AppSettings.Get("apiServer").ToString() + ConfigurationManager.AppSettings.Get("userEndpoint").ToString();
             try
             {
                 var postObject = new
@@ -86,7 +90,7 @@ namespace AppParrotFrank
                 // Handle error
             }
             return null;
-        } 
+        }
 
         private bool ValidateInputs()
         {
@@ -105,5 +109,6 @@ namespace AppParrotFrank
             }
             return true;
         }
+        #endregion
     }
 }
