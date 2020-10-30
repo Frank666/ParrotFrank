@@ -15,13 +15,13 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_19E66A9B0F3A443EA8FCB9DDD7807746"
+        "MsmKey" = "8:_1A2B2BEAE3FC463C8A7F3C405F3B5A42"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_1A2B2BEAE3FC463C8A7F3C405F3B5A42"
+        "MsmKey" = "8:_83D151C6C9484BD096A04167E3F4A323"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -60,8 +60,28 @@
                 {
                     "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.7.2"
                     {
-                    "Name" = "8:Microsoft .NET Framework 4.7.2 (x86 and x64)"
+                    "Name" = "8:Microsoft .NET Framework 4.7.2 (x86 y x64)"
                     "ProductCode" = "8:.NETFramework,Version=v4.7.2"
+                    }
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.NetCore.CoreRuntime.3.1.x64"
+                    {
+                    "Name" = "8:.NET Core Runtime 3.1 (x64)"
+                    "ProductCode" = "8:Microsoft.NetCore.CoreRuntime.3.1.x64"
+                    }
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.NetCore.CoreRuntime.3.1.x86"
+                    {
+                    "Name" = "8:.NET Core Runtime 3.1 (x86)"
+                    "ProductCode" = "8:Microsoft.NetCore.CoreRuntime.3.1.x86"
+                    }
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.NetCore.DesktopRuntime.3.1.x64"
+                    {
+                    "Name" = "8:.NET Desktop Runtime 3.1 (x64)"
+                    "ProductCode" = "8:Microsoft.NetCore.DesktopRuntime.3.1.x64"
+                    }
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.NetCore.DesktopRuntime.3.1.x86"
+                    {
+                    "Name" = "8:.NET Desktop Runtime 3.1 (x86)"
+                    "ProductCode" = "8:Microsoft.NetCore.DesktopRuntime.3.1.x86"
                     }
                 }
             }
@@ -217,7 +237,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:ParrotFrankInstaller"
         "ProductCode" = "8:{669D5082-0BC1-4178-9BEB-2BE6E98B240F}"
-        "PackageCode" = "8:{7E2CE2A6-ED9F-4FF6-A3AC-59B7415D1FEB}"
+        "PackageCode" = "8:{92FD982B-4D97-49DE-BE2A-0EC2BB5ED793}"
         "UpgradeCode" = "8:{5E07109E-6CE8-4EE3-98EF-ACFBEC178D04}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -736,9 +756,9 @@
         }
         "ProjectOutput"
         {
-            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_19E66A9B0F3A443EA8FCB9DDD7807746"
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_83D151C6C9484BD096A04167E3F4A323"
             {
-            "SourcePath" = "8:..\\AppParrotFrank\\obj\\Debug\\netcoreapp3.1\\AppParrotFrank.dll"
+            "SourcePath" = "8:..\\AppParrotFrank\\obj\\Debug\\netcoreapp3.1\\AppParrotFrank.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_58617E5D483846B5BF54A8A6675AD877"
@@ -757,9 +777,10 @@
             "IsolateTo" = "8:"
             "ProjectOutputGroupRegister" = "3:1"
             "OutputConfiguration" = "8:"
-            "OutputGroupCanonicalName" = "8:Built"
+            "OutputGroupCanonicalName" = "8:PublishItems"
             "OutputProjectGuid" = "8:{04D830D8-DEFA-404B-9B1E-31908FB80B93}"
             "ShowKeyOutput" = "11:TRUE"
+            "PublishProfilePath" = "8:Properties\\PublishProfiles\\FolderProfile.pubxml"
                 "ExcludeFilters"
                 {
                 }
