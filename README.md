@@ -1,6 +1,12 @@
 # ParrotFrank
 
-ParrotFrank is the response to Parrot Challenge and try to cover all the specs in the best way possible
+Parrot Challenge
+
+## Requirements
+Visual Studio 2019
+.Net Core 3.1
+MySQL DB Engine
+MySQL Workbench
 
 ## Installation
 
