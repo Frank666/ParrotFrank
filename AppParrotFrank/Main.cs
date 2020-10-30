@@ -23,7 +23,24 @@ namespace AppParrotFrank
             InitializeComponent();
             this.lblUser.Text = lblUser.Text.Replace("@User", GlobalUser.CurrentUser.Nick);
             this.lblTitle.Text = $"{GlobalUser.CurrentUser.Nick} Store";
-            this.lblToken.Text = lblToken.Text.Replace("@Time", SessionTime(DateTime.Now, (DateTime)GlobalUser.CurrentUser.RefreshTime).ToString());            
+            this.lblToken.Text = lblToken.Text.Replace("@Time", SessionTime(DateTime.Now, (DateTime)GlobalUser.CurrentUser.RefreshTime).ToString());
+            Timer MyTimer = new Timer();
+            MyTimer.Interval = (25 * 60 * 1000); // 20 mins
+            MyTimer.Tick += new EventHandler(MyTimer_Tick);
+            MyTimer.Start();
+        }
+
+        private void MyTimer_Tick(object sender, EventArgs e)
+        {
+            DialogResult dialogResult = MessageBox.Show("Do you want to extend the session?", "Session Expired", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                GetNewToken();
+            }
+            else if (dialogResult == DialogResult.No)
+            {
+                this.Close();
+            }
         }
 
         #region "Events"
@@ -78,6 +95,42 @@ namespace AppParrotFrank
             try
             {
                 return await new ParrotFrankHelpers.APIConsume().APICall(HttpMethod.Get, url, null, GlobalUser.CurrentUser.Token);
+            }
+            catch (WebException ex)
+            {
+                // Handle error
+            }
+            return null;
+        }
+
+        private async void GetNewToken()
+        {
+            await Task.Run(() => {
+                return RefreshToken();
+            }).ContinueWith(x => {
+                responseResult = x.Result;
+            });
+            if (responseResult != null && Convert.ToInt32(responseResult.StatusCode) == 200)
+            {
+                var newTokens = JsonConvert.DeserializeObject<Users>(responseResult.Content.ReadAsStringAsync().Result);
+                GlobalUser.CurrentUser.Token = newTokens.Token;
+                GlobalUser.CurrentUser.RefreshToken = newTokens.RefreshToken;
+                MessageBox.Show("Welcome back :)", "Session extended", MessageBoxButtons.OK, MessageBoxIcon.Information);                
+            }
+        }
+
+        private async Task<HttpResponseMessage> RefreshToken()
+        {
+            var url = ConfigurationManager.AppSettings.Get("apiServer").ToString() + ConfigurationManager.AppSettings.Get("refreshEndpoint").ToString();
+            try
+            {
+                var param = new
+                {
+                    token = GlobalUser.CurrentUser.Token,
+                    refreshToken = GlobalUser.CurrentUser.RefreshToken,
+                    Nick = GlobalUser.CurrentUser.Nick
+                };
+                return await new ParrotFrankHelpers.APIConsume().APICall(HttpMethod.Post, url, param, GlobalUser.CurrentUser.Token);
             }
             catch (WebException ex)
             {

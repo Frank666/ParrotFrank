@@ -31,8 +31,6 @@ namespace AppParrotFrank
         #region "Events"
         private void Form1_Load(object sender, EventArgs e)
         {
-            this.txtNick.Text = "Fideo";
-            this.txtPass.Text = "Fideo123";
         }
 
         private void btnLogin_Click(object sender, EventArgs e)
@@ -71,7 +69,6 @@ namespace AppParrotFrank
                 }
             }
         }
-
 
         private async Task<HttpResponseMessage> CheckUser()
         {

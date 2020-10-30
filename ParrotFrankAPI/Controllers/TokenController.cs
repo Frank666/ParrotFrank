@@ -84,6 +84,7 @@ namespace ParrotFrankAPI.Controllers
             }
             string accessToken = requestUser.Token;
             string refreshToken = requestUser.RefreshToken;
+            helper.Key = _configuration["Jwt:Key"].ToString();
             var principal = helper.GetPrincipalFromExpiredToken(accessToken);
 
             var user = await _repository.GetByNick(requestUser.Nick);
@@ -95,11 +96,12 @@ namespace ParrotFrankAPI.Controllers
             var newAccessToken = helper.GenerateAccessToken(principal.Claims);
             var newRefreshToken = helper.GenerateRefreshToken();
             user.RefreshToken = newRefreshToken;
+            user.RefreshTime = DateTime.Now.AddMinutes(25);
             await _repository.Update(user);
             return new ObjectResult(new
             {
-                accessToken = newAccessToken,
-                refreshToken = newRefreshToken
+                Token = newAccessToken,
+                RefreshToken = newRefreshToken
             });
         }
 
