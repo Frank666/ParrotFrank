@@ -17,6 +17,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ParrotFrankHelpers", "Parro
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "ParrotFrankInstaller", "ParrotFrankInstaller\ParrotFrankInstaller.vdproj", "{CD9D59D5-46BA-4066-A7A8-050131703BE7}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "ParrotFrankAPIInstaller", "ParrotFrankAPIInstaller\ParrotFrankAPIInstaller.vdproj", "{9B586BBF-BA83-420A-8C43-AE2E5ADE15BA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -79,6 +81,10 @@ Global
 		{CD9D59D5-46BA-4066-A7A8-050131703BE7}.Release|Any CPU.ActiveCfg = Release
 		{CD9D59D5-46BA-4066-A7A8-050131703BE7}.Release|x86.ActiveCfg = Release
 		{CD9D59D5-46BA-4066-A7A8-050131703BE7}.Release|x86.Build.0 = Release
+		{9B586BBF-BA83-420A-8C43-AE2E5ADE15BA}.Debug|Any CPU.ActiveCfg = Debug
+		{9B586BBF-BA83-420A-8C43-AE2E5ADE15BA}.Debug|x86.ActiveCfg = Debug
+		{9B586BBF-BA83-420A-8C43-AE2E5ADE15BA}.Release|Any CPU.ActiveCfg = Release
+		{9B586BBF-BA83-420A-8C43-AE2E5ADE15BA}.Release|x86.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
