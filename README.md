@@ -7,6 +7,8 @@ Visual Studio 2019
 .Net Core 3.1
 MySQL DB Engine
 MySQL Workbench
+ASP.NET Core 3.1 Runtime (v3.1.9)
+IIS Server
 
 ## Installation
 
