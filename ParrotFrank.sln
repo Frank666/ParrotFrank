@@ -19,6 +19,12 @@ Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "ParrotFrankInstaller", "Par
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "ParrotFrankAPIInstaller", "ParrotFrankAPIInstaller\ParrotFrankAPIInstaller.vdproj", "{9B586BBF-BA83-420A-8C43-AE2E5ADE15BA}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B25A4A1D-0B29-49B3-A275-BE6B0AB86F75}"
+	ProjectSection(SolutionItems) = preProject
+		APIInstaller.rar = APIInstaller.rar
+		AppInstaller.rar = AppInstaller.rar
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
