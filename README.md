@@ -11,9 +11,13 @@ ASP.NET Core 3.1 Runtime (v3.1.9)
 IIS Server
 
 ## Installation
+WinForms APP
+AppInstaller.rar
+MSI installer for windows forms app, once the app was installed, please check and review the app.config file to set the correct API endpoint 
 
-ON PROGRESS
-MSI Installer
+API
+Create a website app inside IIS with name "ParrotFrankAPI" and set the directory inside wwwroot folder -C:\inetpub\wwwroot\ParrotFrankAPI-.
+Swagger API documentation: servername/ParrotFrankAPI/swagger
 
 ```bash
 1) Clone the repo and open the solution file on Visual Studio 
